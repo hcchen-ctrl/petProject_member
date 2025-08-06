@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>台灣行政區選單</title>
+</head>
+<body>
+  <label for="county">縣市：</label>
+  <select id="county" onchange="updateDistricts()">
+    <option value="">請選擇縣市</option>
+  </select>
+
+  <label for="district">鄉鎮市區：</label>
+  <select id="district">
+    <option value="">請選擇鄉鎮市區</option>
+  </select>
+
+  <script>
+    // 台灣部分行政區資料（簡化示範，可擴充）
+    const taiwanRegions = {
+      "台北市": ["中正區", "大同區", "中山區", "松山區", "大安區"],
+      "新北市": ["板橋區", "新莊區", "中和區", "永和區", "三重區"],
+      "桃園市": ["桃園區", "中壢區", "平鎮區", "八德區"],
+      "台中市": ["中區", "西區", "北區", "北屯區", "南屯區"],
+      "高雄市": ["新興區", "前金區", "苓雅區", "左營區", "鳳山區"],
+      "台南市": ["中西區", "東區", "南區", "北區", "安平區"]
+    };
+
+    const countySelect = document.getElementById("county");
+    const districtSelect = document.getElementById("district");
+
+    // 初始化縣市下拉選單
+    for (let county in taiwanRegions) {
+      const option = document.createElement("option");
+      option.value = county;
+      option.textContent = county;
+      countySelect.appendChild(option);
+    }
+
+    // 根據縣市更新鄉鎮市區
+    function updateDistricts() {
+      const selectedCounty = countySelect.value;
+      districtSelect.innerHTML = '<option value="">請選擇鄉鎮市區</option>';
+
+      if (taiwanRegions[selectedCounty]) {
+        taiwanRegions[selectedCounty].forEach(district => {
+          const option = document.createElement("option");
+          option.value = district;
+          option.textContent = district;
+          districtSelect.appendChild(option);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
