@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:3306
--- 產生時間： 2025-08-06 01:14:20
+-- 產生時間： 2025-08-06 08:21:39
 -- 伺服器版本： 5.7.24
 -- PHP 版本： 8.3.1
 
@@ -28,12 +28,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `memberinfo` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `member_id` int(10) UNSIGNED NOT NULL,
+  `phoneNumber` varchar(50) DEFAULT NULL,
+  `icon` blob COMMENT '頭像',
   `name` varchar(100) NOT NULL,
   `passWord` varchar(100) NOT NULL,
   `gender` varchar(100) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '性别(M:男生;F:女生)',
   `accountEmail` varchar(100) NOT NULL COMMENT '帳號',
   `city` varchar(100) DEFAULT NULL COMMENT '居住城市',
+  `district` varchar(100) DEFAULT NULL COMMENT '居住區域',
   `petExperience` varchar(100) DEFAULT NULL COMMENT '飼養經驗(N:無;Y:有)',
   `daily` varchar(1000) DEFAULT NULL COMMENT '飼主生活作息',
   `activities` varchar(1000) DEFAULT NULL COMMENT '飼主日常活動',
@@ -51,7 +54,7 @@ CREATE TABLE `memberinfo` (
 -- 資料表索引 `memberinfo`
 --
 ALTER TABLE `memberinfo`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`member_id`);
 
 --
 -- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
@@ -61,7 +64,7 @@ ALTER TABLE `memberinfo`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `memberinfo`
 --
 ALTER TABLE `memberinfo`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `member_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
