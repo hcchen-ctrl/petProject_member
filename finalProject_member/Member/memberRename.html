@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wepet 寵物資訊平台</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- ...existing code... -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- ...existing code... -->
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="chatroom.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container-fluid">
+            <!-- LOGO -->
+            <a class="navbar-brand" href="#">
+                <img src="../pet-icon.png" width="36" height="36" class="d-inline-block align-top" alt="logo">
+                寵物資訊平台
+            </a>
+
+            <!-- 手機切換按鈕 -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- 導覽列連結 -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center w-100">
+
+                    <!-- 左側按鈕 -->
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link btn btn-login m-1" href="#">尋找領養</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-login m-1" href="#">尋找任務</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-login m-1" href="#">寵物商城</a></li>
+                    </ul>
+
+                    <!-- 右側按鈕 -->
+                    <div class=" position-fixed end-0 m-4 ">
+                        <button id="chat-toggle" class="btn btn-material">
+                            <span class="material-icons">chat_bubble_outline</span>
+                        </button>
+                        <button class="btn btn-material">
+                            <span class="material-icons">shopping_cart</span>
+                        </button>
+                        <div class="dropdown d-inline">
+                            <button class="btn btn-material dropdown-toggle" type="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="material-icons">account_circle</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                                <li><a class="dropdown-item" href="#">修改資料</a></li>
+                                <li><a class="dropdown-item" href="#">登出</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container">
+
+        <!-- 主要內容區域 -->
+        <!-- 我的資料頁面 -->
+        <div id="profile" class="content-section">
+            <h1 class="page-title">我的資料</h1>
+
+            <div class="verification-options">
+                <button class="verification-btn active" onclick="setVerificationMethod('update')">資料異動</button>
+                <button class="verification-btn " onclick="setVerificationMethod('phone')">手機號碼</button>
+                <button class="verification-btn" onclick="setVerificationMethod('password')">變更密碼</button>
+                <button class="verification-btn" onclick="setVerificationMethod('deleteAccount')">刪除帳號</button>
+            </div>
+
+            <div class="message success" id="successMessage">資料更新成功！</div>
+            <div class="message error" id="errorMessage">請檢查您的輸入資料</div>
+
+
+            <div id="profileUpdate" class="verification-section" style="display: block;">
+                <div class="form-group">
+                    <label class="form-label">姓名</label>
+                    <input type="text" class="form-input" placeholder="請輸入姓名">
+
+                    <label for="gender" class="form-label">性別</label>
+                    <select id="gender">
+                        <option>請選擇</option>
+                        <option>男</option>
+                        <option>女</option>
+                        <option>其他</option>
+                    </select>
+
+                    <label class="form-label">電子郵件</label>
+                    <input type="email" class="form-input" placeholder="請輸入電子郵件">
+
+                    <label for="city" class="form-label">主要生活縣／市</label>
+                    <select id="city">
+                        <option>請選擇</option>
+                        <option>基隆市</option>
+                        <option>台北市</option>
+                        <option>新北市</option>
+                        <option>桃園市</option>
+                        <option>新竹縣</option>
+                        <option>苗栗縣</option>
+                        <option>臺中市</option>
+                        <option>彰化縣</option>
+                        <option>南投縣</option>
+                        <option>雲林縣</option>
+                        <option>嘉義縣</option>
+                        <option>臺南市</option>
+                        <option>高雄市</option>
+                        <option>屏東縣</option>
+                        <option>宜蘭縣</option>
+                        <option>花蓮縣</option>
+                        <option>臺東縣</option>
+                        <option>澎湖縣</option>
+                        <option>新竹市</option>
+                        <option>嘉義市</option>
+                        <option>連江縣</option>
+                        <option>金門縣</option>
+                    </select>
+
+                    <label for="experience" class="form-label">飼養經驗</label>
+                    <select id="experience">
+                        <option>有</option>
+                        <option>無</option>
+                    </select>
+
+                    <label for="schedule" class="form-label">生活作息(大多時間)</label>
+                    <select id="schedule">
+                        <option>早起型（6:00-7:00起床）</option>
+                        <option>正常作息（7:00-9:00起床）</option>
+                        <option>晚起型（9:00以後起床）</option>
+                        <option>夜貓子（經常熬夜）</option>
+                    </select>
+
+                    <div class="form-group full-width">
+                        <label for="activities" class="form-label">您的休閒活動偏好（可多選）：</label>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="outdoor" name="activities" value="戶外活動">
+                            <label for="outdoor">戶外活動（登山、慢跑、騎車等）</label>
+                        </div>
+
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="indoor" name="activities" value="室內活動">
+                            <label for="indoor">室內活動（閱讀、看電影、遊戲等）</label>
+                        </div>
+
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="social" name="activities" value="社交活動">
+                            <label for="social">社交活動（聚餐、聚會、KTV等）</label>
+                        </div>
+
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="creative" name="activities" value="創作活動">
+                            <label for="creative">創作活動（繪畫、音樂、手工等）</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="pets" class="form-label">您偏好飼養的寵物類型（可多選）：</label>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="dog" name="pets" value="狗">
+                            <label for="dog">狗狗</label>
+                            <input type="checkbox" id="cat" name="pets" value="貓">
+                            <label for="cat">貓咪</label>
+                        </div>
+
+                        <label for="personality" class="form-label">您偏好飼養的寵物個性（可多選）：</label>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="cheerful" name="personality" value="活潑">
+                            <label for="cheerful">個性活潑型</label>
+
+                            <input type="checkbox" id="quiet" name="personality" value="安靜">
+                            <label for="quiet">個性安靜型</label>
+
+                            <input type="checkbox" id="fear" name="personality" value="怕生">
+                            <label for="fear">接受怕生的</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">確認</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">重設</button>
+                </div>
+                </form>
+            </div>
+
+
+        </div>
+
+        <form class="profile-form" id="profileForm">
+            <div id="deleteAccountPage" class="verification-section" style="display: none;">
+                <div class="form-group">
+                    <p class="form-label">您確定要刪除帳號嗎？</p>
+                    <button type="button" class="btn btn-outline">確認刪除帳號</button>
+                </div>
+            </div>
+        </form>
+
+
+        <div id="phoneVerification" class="verification-section" style="display: none;">
+            <div class="form-group">
+                <label class="form-label">手機號碼</label>
+                <input type="tel" class="form-input" placeholder="請輸入手機號碼" id="phoneInput">
+                <label class="form-label">驗證碼</label>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" class="form-input" placeholder="請輸入驗證碼" id="verificationCode"
+                        style="max-width: 200px;">
+                    <button type="button" class="btn btn-outline" onclick="sendVerificationCode()">發送驗證碼</button>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">確認</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">重設</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="passwordChange" class="verification-section" style="display: none;">
+            <div class="form-group">
+                <label class="form-label">目前密碼</label>
+                <input type="password" class="form-input" placeholder="請輸入目前密碼">
+
+                <label class="form-label">新密碼</label>
+                <input type="password" class="form-input" placeholder="請輸入新密碼">
+
+                <label class="form-label">確認新密碼</label>
+                <input type="password" class="form-input" placeholder="請再次輸入新密碼">
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">確認</button>
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">重設</button>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+    <script>
+        // 頁面切換功能
+        function showSection(sectionId) {
+            // 隱藏所有內容區塊
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 移除所有導航項目的 active 狀態
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // 顯示選中的內容區塊
+            document.getElementById(sectionId).classList.add('active');
+
+            // 設定對應導航項目為 active
+            event.target.classList.add('active');
+        }
+
+        // 驗證方式切換
+        function setVerificationMethod(method) {
+            // 移除所有按鈕的 active 狀態
+            document.querySelectorAll('.verification-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // 設定點擊的按鈕為 active
+            event.target.classList.add('active');
+
+            // 隱藏所有驗證區塊
+            document.querySelectorAll('.verification-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // 顯示對應的驗證區塊
+            switch (method) {
+                case 'phone':
+                    document.getElementById('phoneVerification').style.display = 'block';
+                    break;
+                case 'password':
+                    document.getElementById('passwordChange').style.display = 'block';
+                    break;
+                case 'update':
+                    document.getElementById('profileUpdate').style.display = 'block';
+                    break;
+                case 'deleteAccount':
+                    document.getElementById('deleteAccountPage').style.display = 'block';
+                    break;
+            }
+        }
+
+        // 發送驗證碼
+        function sendVerificationCode() {
+            const phoneInput = document.getElementById('phoneInput');
+            if (!phoneInput.value) {
+                showMessage('請先輸入手機號碼', 'error');
+                return;
+            }
+
+            // 模擬發送驗證碼
+            showMessage('驗證碼已發送至您的手機', 'success');
+
+            // 按鈕倒數計時
+            const btn = event.target;
+            let countdown = 60;
+            btn.disabled = true;
+            btn.textContent = `${countdown}秒後重新發送`;
+
+            const timer = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    btn.textContent = `${countdown}秒後重新發送`;
+                } else {
+                    btn.disabled = false;
+                    btn.textContent = '發送驗證碼';
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
+
+        // 重設表單
+        function resetForm() {
+            document.getElementById('profileForm').reset();
+            document.getElementById('accountInput').value = '0920****04';
+        }
+
+        // 顯示訊息
+        function showMessage(text, type) {
+            const messageElement = document.getElementById(type === 'success' ? 'successMessage' : 'errorMessage');
+            messageElement.textContent = text;
+            messageElement.style.display = 'block';
+
+            // 3秒後自動隱藏
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 3000);
+        }
+
+        // 表單提交處理
+        document.getElementById('profileForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // 模擬提交處理
+            showMessage('資料更新成功！', 'success');
+        });
+    </script>
+</body>
+
+</html>
